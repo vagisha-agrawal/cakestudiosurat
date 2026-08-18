@@ -29,6 +29,10 @@ export default function Contact() {
     {
       q: 'Do you have different cake sizes?',
       a: 'Yes, we offer various sizes starting from 500g (half kg) onwards. Multitier cakes have minimum weight requirements depending on the design.'
+    },
+    {
+      q: 'What is the base price of half kg cake',
+      a: 'The base price of half kg cake is 650/-. The price will differ according to your requirements'
     }
   ];
 

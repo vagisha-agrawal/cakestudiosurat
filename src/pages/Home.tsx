@@ -203,8 +203,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold tracking-tight text-brand-brown font-serif sm:text-4xl">
-              Loved by Surat
+              Love by Our Customers
             </h2>
+          </div>
+          <div className="text-right mb-16">
+            <button className="tracking-tight bg-brand-brown font-serif font-semibold p-[10px] text-brand-cream rounded-xl">More {'>>'}</button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

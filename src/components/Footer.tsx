@@ -5,13 +5,13 @@ import { Instagram, Phone, MessageCircle, MapPin } from 'lucide-react';
 export default function Footer() {
   return (
     <footer className="bg-white pt-16 pb-24 md:pb-8 border-t border-brand-pink/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
           
           <div className="md:col-span-1">
             <Link to="/" className="flex-shrink-0 flex items-center mb-6 space-x-3">
               <img src="/favicon.png" alt="CakeStudioSurat Logo" className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-brand-cocoa/20 shadow-md" />
-              <span className="font-serif text-2xl md:text-3xl font-bold text-brand-brown mt-1">
+              <span className="font-serif text md:text-3xl font-bold text-brand-brown mt-1">
                 CakeStudio<span className="text-brand-cocoa">Surat</span>
               </span>
             </Link>

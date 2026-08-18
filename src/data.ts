@@ -1,37 +1,105 @@
 import { Cake, Testimonial } from './types';
-import cakeChocolate from './assets/images/cake_chocolate_1786293967405.jpg';
-import cakeBerry from './assets/images/cake_berry_1786293984287.jpg';
-import cakeAnniversary from './assets/images/cake_anniversary_1786293999829.jpg';
-import cakeKids from './assets/images/cake_kids_1786294014450.jpg';
+import chocolateTruffle from './assets/images/chocolate_truffle.jpeg';
+import babyWelcome from './assets/images/baby_welcome.jpeg';
+import chocolateCreme from './assets/images/chocolate_cream.jpeg';
+import vanillaCreme from './assets/images/vanilla_creme.jpeg';
+import BelgiumDoubleTruffleGanache from './assets/images/Belgium_Double_Truffle_Ganache.jpeg';
+import vanillaChocolateCupcake from './assets/images/vanilla_chocolate_cupcake.jpeg';
+import BiscoffVanillaCreme from './assets/images/Biscoff_Vanilla_Creme.jpeg';
+import kidsChocolateTruffle from './assets/images/kids_chocolate_truffle.jpeg';
+import unicornThemeCake from './assets/images/unicorn_theme_cake.jpeg';
+import vanillaFlavourTruffle from './assets/images/vanilla_flavour_truffle.jpeg';
 
 export const cakes: Cake[] = [
   {
     id: '1',
-    name: 'Classic Truffle Indulgence',
+    name: 'Chocolate Truffle',
+    price: '1250/-',
+    weight: '1/2 kg',
     category: 'Birthday',
     description: 'Rich, moist chocolate cake layered with decadent dark chocolate ganache.',
-    image: cakeChocolate,
+    image: chocolateTruffle,
   },
   {
     id: '2',
-    name: 'Rustic Berry Delight',
+    name: 'Double Truffle Flavour',
+    price: '1100/-',
+    weight: '1/2 kg',
     category: 'Celebration',
-    description: 'A beautiful naked cake topped with fresh strawberries and raspberries.',
-    image: cakeBerry,
+    description: 'Double truffle baby boy welcome cake featuring a blue bear, pram, feeding bottle, and booties.',
+    image: babyWelcome,
   },
   {
     id: '3',
-    name: 'Elegant Floral Vanilla',
-    category: 'Anniversary',
-    description: 'Two-tier vanilla bean cake decorated with delicate buttercream flowers.',
-    image: cakeAnniversary,
+    name: 'Chai theme Chocolate cream cake',
+    price: '850/-',
+    weight: '1/2 kg',
+    category: 'Birthday',
+    description: 'Chocolate creme cake featuring a "Chai is Life" topper, teacup, books, stationery, and blackboard',
+    image: chocolateCreme,
   },
   {
     id: '4',
-    name: 'Pastel Dreamscape',
+    name: 'Vanilla Creme Flavours',
+    price: '750/-',
+    weight: '1/2 kg',
+    category: 'Birthday',
+    description: 'Vanilla creme cake featuring a personalized photo and blue balloon toppers.',
+    image: vanillaCreme,
+  },
+  {
+    id: '5',
+    name: 'Belgium Double Truffle Ganache',
+    price: '950/-',
+    weight: '1/2 kg',
+    category: 'Birthday',
+    description: 'Belgium double truffle ganache birthday cake adorned with gold butterflies, gold spheres, and a "Happy Birthday" topper.',
+    image: BelgiumDoubleTruffleGanache,
+  },
+  {
+    id: '6',
+    name: 'vanilla/chocolate Cupcakes',
+    price: '50/pc',
+    weight: '1 pc',
+    category: 'CupCake',
+    description: 'Delicious vanilla and chocolate cupcakes perfect for any celebration.',
+    image: vanillaChocolateCupcake,
+  },
+  {
+    id: '7',
+    name: 'Biscoff Vanilla Creme',
+    price: '800/-',
+    weight: '1/2 kg',
+    category: 'Birthday',
+    description: 'Biscoff vanilla cream birthday cake decorated with white frosting and black ribbon bows.',
+    image: BiscoffVanillaCreme,
+  },
+  {
+    id: '8',
+    name: 'Chocolate Truffle',
+    price: '750/-',
+    weight: '1/2 kg',
     category: 'Kids',
-    description: 'Fun and colorful funfetti cake with soft pastel buttercream and clouds.',
-    image: cakeKids,
+    description: 'Biscoff vanilla cream birthday cake decorated with white frosting and black ribbon bows.',
+    image: kidsChocolateTruffle,
+  },
+  {
+    id: '9',
+    name: 'Unicorn Theme Truffle Cake',
+    price: '1500/-',
+    weight: '1 kg',
+    category: 'Kids',
+    description: 'Biscoff vanilla cream birthday cake decorated with white frosting and black ribbon bows.',
+    image: unicornThemeCake,
+  },
+  {
+    id: '10',
+    name: 'Vanilla Truffle Cake',
+    price: '1400/-',
+    weight: '1 kg',
+    category: 'Kids',
+    description: 'Biscoff vanilla cream birthday cake decorated with white frosting and black ribbon bows.',
+    image: vanillaFlavourTruffle,
   },
 ];
 
@@ -57,8 +125,14 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const galleryImages = [
-  cakeChocolate,
-  cakeBerry,
-  cakeAnniversary,
-  cakeKids,
+  chocolateTruffle,
+  babyWelcome,
+  vanillaCreme,
+  chocolateCreme,
+  BelgiumDoubleTruffleGanache,
+  vanillaChocolateCupcake,
+  BiscoffVanillaCreme,
+  kidsChocolateTruffle,
+  unicornThemeCake,
+  vanillaFlavourTruffle
 ];

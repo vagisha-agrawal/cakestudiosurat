@@ -6,7 +6,7 @@ import { cakes } from '../data';
 export default function OurCakes() {
   const [filter, setFilter] = useState('All');
   
-  const categories = ['All', 'Birthday', 'Anniversary', 'Kids', 'Designer', 'Celebration'];
+  const categories = ['All', 'Birthday', 'Anniversary', 'Kids', 'Celebration'];
 
   const filteredCakes = filter === 'All' 
     ? cakes 
@@ -72,7 +72,7 @@ export default function OurCakes() {
                   <img 
                     src={cake.image} 
                     alt={cake.name} 
-                    className="w-full h-72 object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-72 object-cover object-center group-hover:h-[519px] group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <a 
@@ -85,7 +85,7 @@ export default function OurCakes() {
                     </a>
                   </div>
                 </div>
-                <div className="p-6 flex-grow flex flex-col">
+                <div className="p-6 flex-grow flex flex-col group-hover:hidden">
                   <div className="mb-2">
                     <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-brand-pink/40 text-brand-cocoa">
                       {cake.category}

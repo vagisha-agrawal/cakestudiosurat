@@ -30,14 +30,14 @@ export default function Navbar() {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center space-x-3">
               <img src="/favicon.png" alt="CakeStudioSurat Logo" className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-brand-cocoa/20 shadow-md" />
-              <span className="font-serif text-2xl md:text-3xl font-bold text-brand-brown sm:block mt-1">
-                CakeStudio<span className="text-brand-cocoa">Surat</span>
+              <span className="font-serif text-xl md:text-2xl font-bold text-brand-cocoa sm:block mt-1">
+                CakeStudioSurat
               </span>
             </Link>
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="flex items-center space-x-8">
             <Link to="/" className={`text-sm font-medium transition-colors hover:text-brand-cocoa ${isActive('/') ? 'text-brand-cocoa' : 'text-brand-brown/80'}`}>Home</Link>
             
             <div 

@@ -5,9 +5,7 @@ import { galleryImages } from '../data';
 
 // Simulating a larger gallery by repeating images with slightly different keys/order
 const extendedGallery = [
-  ...galleryImages.map((img, i) => ({ id: `g1-${i}`, src: img, cat: ['All', 'Birthday'] })),
-  ...galleryImages.map((img, i) => ({ id: `g2-${i}`, src: img, cat: ['All', 'Anniversary'] })).reverse(),
-  ...galleryImages.map((img, i) => ({ id: `g3-${i}`, src: img, cat: ['All', 'Kids', 'Custom'] })),
+  ...galleryImages.map((img, i) => ({ id: `g1-${i}`, src: img, cat: ['All'] }))
 ];
 
 export default function Gallery() {

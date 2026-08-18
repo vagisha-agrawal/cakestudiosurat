@@ -21,8 +21,8 @@ export default function HowToOrder() {
     },
     {
       num: '04',
-      title: 'Collect & Celebrate',
-      desc: 'Pick up your freshly baked masterpiece from our studio in Pandesara at the agreed time, and enjoy your celebration!'
+      title: 'Collect OR Delivery',
+      desc: 'Pick up your freshly baked masterpiece from our studio in Pandesara at the agreed time, or we can deliver the cake at your address by three-wheeler but a minimal delivery charge will have to pay!'
     }
   ];
 
