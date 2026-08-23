@@ -140,7 +140,10 @@ export default function OurCakes() {
                   </div>
                   <h3 className="text-xl font-bold text-brand-brown font-serif mb-2">{cake.name}</h3>
                   <p className="text-brand-brown/70 text-sm flex-grow line-clamp-2">{cake.description}</p>
-                  <p className="font-medium bg-brand-brown mb-6 mt-2 text-white py-2 px-4 rounded-xl">{cake.price}</p>
+                  <div className="flex w-full justify-between mb-6 items-center mt-4">
+                    <p className="font-medium bg-brand-brown mt-2 text-white py-2 px-4 rounded-xl">{cake.price}/-</p>
+                    <p>Weight: {cake.weight}</p>
+                  </div>
                   
                   <a 
                     href={`https://wa.me/919830216551?text=${encodeURIComponent(`Hi, I would like to inquire about the ${cake.name} cake.\n\nReference image: ${cake.image}`)}`}
