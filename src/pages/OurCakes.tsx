@@ -1,16 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle, Download } from 'lucide-react';
-import { cakes } from '../data';
+import axios from 'axios';
+
+type Cake = {
+  image: string;
+  name: string;
+  subCategory: string;
+  description: string;
+  weight: string;
+  price: string;
+};
 
 export default function OurCakes() {
-  const [filter, setFilter] = useState('All');
-  
-  const categories = ['All', 'Birthday', 'Anniversary', 'Kids', 'Celebration'];
+  const [filter, setFilter] = useState('all');
+  const [loading, setLoading] = useState(false);
+  const [filterLabel , setFilterLabel] = useState('All');
+  const [data, setData] = useState<Cake[]>([]);
 
-  const filteredCakes = filter === 'All' 
+  // const categories = ['All', 'Birthday', 'Anniversary', 'Kids', 'Celebration', 'Cupcakes'];
+  const categories = [
+  { label: "All", value: "all" },
+  { label: "Birthday", value: "birthday" },
+  { label: "Anniversary", value: "anniversary" },
+  { label: "Kids", value: "kids cake" },
+  { label: "Celebration", value: "celebration cake" },
+  { label: "Cupcakes", value: "cupcake" },
+  { label: "Brownies", value: "brownie" },
+];
+
+  /* const filteredCakes = filter === 'all' 
     ? cakes 
-    : cakes.filter(cake => cake.category === filter);
+    : cakes.filter(cake => cake.category === filter); */
+
+  const getData = () => {
+    setLoading(true);
+    axios.get(`https://website-backend-node-api.onrender.com/api/product/show?category=cakeStudio&subCategory=${filter}`)
+      .then(response => {
+        setLoading(false);
+        // Handle the response data
+        console.log(response.data);
+        setData(response.data.data);
+      })
+      .catch(error => {
+        setLoading(false);
+        // Handle any errors
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  useEffect(() => {
+    getData();
+  }, [filter]);
+
+  const filterCakes = (obj:any) => {
+    setFilter(obj.value);
+    setFilterLabel(obj.label);
+  }
 
   return (
     <div className="bg-white min-h-screen py-16 sm:py-24">
@@ -43,36 +89,37 @@ export default function OurCakes() {
         >
           {categories.map((cat) => (
             <button
-              key={cat}
-              onClick={() => setFilter(cat)}
+              key={cat.label}
+              onClick={() => filterCakes(cat)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 border ${
-                filter === cat 
+                filter === cat.label 
                   ? 'bg-brand-cocoa text-white border-brand-cocoa shadow-md' 
                   : 'bg-brand-cream text-brand-brown border-brand-pink/50 hover:border-brand-cocoa hover:text-brand-cocoa'
               }`}
             >
-              {cat}
+              {cat.label}
             </button>
           ))}
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        {(loading && data.length === 0) ? <h1 className='text-6xl w-full flex justify-center'>Loading ...</h1> : <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence>
-            {filteredCakes.map((cake, index) => (
+            {data.map((cake, index) => (
               <motion.div
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                key={cake.id}
+                key={index}
                 className="bg-brand-cream rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full border border-brand-pink/20"
               >
                 <div className="relative aspect-w-4 aspect-h-3 overflow-hidden bg-white">
                   <img 
                     src={cake.image} 
                     alt={cake.name} 
-                    className="w-full h-72 object-cover object-center group-hover:h-[519px] group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-72 object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <a 
@@ -85,31 +132,32 @@ export default function OurCakes() {
                     </a>
                   </div>
                 </div>
-                <div className="p-6 flex-grow flex flex-col group-hover:hidden">
+                <div className="p-6 flex-grow flex flex-col items-start">
                   <div className="mb-2">
                     <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-brand-pink/40 text-brand-cocoa">
-                      {cake.category}
+                      {cake.subCategory.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                     </span>
                   </div>
                   <h3 className="text-xl font-bold text-brand-brown font-serif mb-2">{cake.name}</h3>
-                  <p className="text-brand-brown/70 text-sm mb-6 flex-grow line-clamp-2">{cake.description}</p>
+                  <p className="text-brand-brown/70 text-sm flex-grow line-clamp-2">{cake.description}</p>
+                  <p className="font-medium bg-brand-brown mb-6 mt-2 text-white py-2 px-4 rounded-xl">{cake.price}</p>
                   
                   <a 
-                    href={`https://wa.me/919830216551?text=${encodeURIComponent(`Hi, I would like to inquire about the ${cake.name} cake.\n\nReference image: ${window.location.origin}${cake.image}`)}`}
+                    href={`https://wa.me/919830216551?text=${encodeURIComponent(`Hi, I would like to inquire about the ${cake.name} cake.\n\nReference image: ${cake.image}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full flex items-center justify-center space-x-2 bg-white border border-brand-cocoa text-brand-cocoa font-medium py-3 rounded-xl hover:bg-brand-cocoa hover:text-white transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Order on WhatsApp</span>
+                    <span>Order this on WhatsApp</span>
                   </a>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </motion.div>}
 
-        {filteredCakes.length === 0 && (
+        {(!loading && data.length === 0) && (
           <div className="text-center py-20">
             <h3 className="text-xl font-serif text-brand-brown mb-2">No cakes found in this category</h3>
             <p className="text-brand-brown/70">Check back later or contact us for custom designs!</p>

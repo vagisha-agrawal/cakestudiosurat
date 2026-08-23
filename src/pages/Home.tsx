@@ -1,11 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Star, Heart, CheckCircle, Clock, Gift } from 'lucide-react';
-import { cakes, testimonials } from '../data';
+import { testimonials } from '../data';
 import heroImage from '../assets/images/hero_cake_1786293937740.jpg';
+import axios from 'axios';
+
+type Cake = {
+  image: string;
+  name: string;
+  subCategory: string;
+  description: string;
+  weight: string;
+  price: string;
+};
 
 export default function Home() {
+  const [data, setData] = useState<Cake[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const getData = () => {
+    setLoading(true);
+    axios.get(`https://website-backend-node-api.onrender.com/api/product/show?category=cakeStudio&subCategory=all`)
+      .then(response => {
+        setLoading(false);
+        // Handle the response data
+        console.log(response.data);
+        setData(response.data.data);
+      })
+      .catch(error => {
+        setLoading(false);
+        // Handle any errors
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  useEffect(() => {
+      getData();
+    }, []);
   return (
     <div className="pb-16 md:pb-0">
       {/* Hero Section */}
@@ -127,9 +159,9 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {cakes.slice(0, 4).map((cake, index) => (
+            {data.slice(0, 4).map((cake, index) => (
               <motion.div
-                key={cake.id}
+                key={index}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -145,11 +177,11 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-brand-pink/50 text-brand-brown mb-3">
-                    {cake.category}
+                    {cake.subCategory.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                   </span>
                   <h3 className="text-xl font-bold text-brand-brown font-serif mb-2">{cake.name}</h3>
                   <a 
-                    href="https://wa.me/919830216551"
+                    href={`https://wa.me/919830216551?text=${encodeURIComponent(`Hi, I would like to inquire about the ${cake.name} cake.\n\nReference image: ${cake.image}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-4 w-full block text-center bg-brand-cream text-brand-cocoa font-medium py-2 rounded-xl hover:bg-brand-pink hover:text-brand-brown transition-colors"
@@ -207,7 +239,7 @@ export default function Home() {
             </h2>
           </div>
           <div className="text-right mb-16">
-            <button className="tracking-tight bg-brand-brown font-serif font-semibold p-[10px] text-brand-cream rounded-xl">More {'>>'}</button>
+            <a href="https://share.google/UM9wxgwEh8whUj1nJ" target="_blank" rel="noopener noreferrer" className="tracking-tight bg-brand-brown font-serif font-semibold p-[10px] text-brand-cream rounded-xl">More {'>>'}</a>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

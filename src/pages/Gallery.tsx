@@ -12,7 +12,7 @@ export default function Gallery() {
   const [filter, setFilter] = useState('All');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const categories = ['All', 'Birthday', 'Anniversary', 'Kids', 'Custom'];
+  const categories = ['All', 'Birthday', 'Anniversary', 'Kids', 'Cupcakes'];
 
   const filteredImages = extendedGallery.filter(img => img.cat.includes(filter));
 

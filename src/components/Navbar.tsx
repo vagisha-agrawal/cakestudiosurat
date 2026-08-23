@@ -37,8 +37,8 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Nav */}
-          <div className="flex items-center space-x-8">
-            <Link to="/" className={`text-sm font-medium transition-colors hover:text-brand-cocoa ${isActive('/') ? 'text-brand-cocoa' : 'text-brand-brown/80'}`}>Home</Link>
+          <div className="flex items-center space-x-8 navbar">
+            <Link to="/" className={` font-medium transition-colors hover:text-brand-cocoa ${isActive('/') ? 'text-brand-cocoa' : 'text-brand-brown/80'}`}>Home</Link>
             
             <div 
               className="relative"
@@ -91,7 +91,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-brand-brown hover:bg-brand-pink/20 transition-colors"
@@ -109,7 +109,7 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden overflow-hidden bg-white border-b border-brand-pink/30"
+            className="lg:hidden overflow-hidden bg-white border-b border-brand-pink/30"
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               {navLinks.map((link) => (

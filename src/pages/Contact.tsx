@@ -139,12 +139,12 @@ export default function Contact() {
             <div className="bg-brand-cream p-8 rounded-3xl border border-brand-pink/30 mb-8">
               <h3 className="font-bold text-lg text-brand-brown mb-2">CakeStudioSurat</h3>
               <p className="text-brand-brown/80 leading-relaxed mb-6">
-                Shrungal Palace, Nem Nagar, <br />
+                204, D Tower, Shrungal Palace, Nem Nagar, <br />
                 Pandesara, Udhana, <br />
                 Surat, Gujarat 394221
               </p>
               <a 
-                href="https://maps.google.com/?q=Shrungal+Palace,+Nem+Nagar,+Pandesara,+Udhana,+Surat,+Gujarat+394221" 
+                href="https://maps.app.goo.gl/MCjMZSy5SSSvmD2v9" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-3 border border-brand-cocoa text-sm font-medium rounded-full text-brand-cocoa bg-transparent hover:bg-brand-cocoa hover:text-white transition-colors"
@@ -152,11 +152,13 @@ export default function Contact() {
                 Get Directions
               </a>
             </div>
+
+            
             
             {/* Map Placeholder for design purposes */}
             <div className="w-full h-64 bg-gray-200 rounded-3xl overflow-hidden relative shadow-inner">
                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.22384666628!2d72.8273!3d21.1444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e59411d1563%3A0x6e9f1680d222271a!2sPandesara%2C%20Udhana%2C%20Surat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1044145427445!2d72.81320897600075!3d21.148242583662586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be051aab9ece1cb%3A0x4b18184b8860bc69!2sShrungal%20Palace!5e0!3m2!1sen!2sin!4v1787122090556!5m2!1sen!2sin"
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
