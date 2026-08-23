@@ -1,20 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ZoomIn } from 'lucide-react';
 import { galleryImages } from '../data';
+import axios from 'axios';
 
 // Simulating a larger gallery by repeating images with slightly different keys/order
-const extendedGallery = [
-  ...galleryImages.map((img, i) => ({ id: `g1-${i}`, src: img, cat: ['All'] }))
-];
+type Cake = {
+  image: string;
+  name: string;
+  subCategory: string;
+  description: string;
+  weight: string;
+  price: string;
+};
 
 export default function Gallery() {
   const [filter, setFilter] = useState('All');
+  const [loading, setLoading] = useState(false);
+  const [filterLabel , setFilterLabel] = useState('All');
+  const [data, setData] = useState<Cake[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const categories = ['All', 'Birthday', 'Anniversary', 'Kids', 'Cupcakes'];
+  const categories = [
+  { label: "All", value: "all" },
+  { label: "Birthday", value: "birthday" },
+  { label: "Anniversary", value: "anniversary" },
+  { label: "Kids", value: "kids cake" },
+  { label: "Celebration", value: "celebration cake" },
+  { label: "Cupcakes", value: "cupcake" },
+  { label: "Brownies", value: "brownie" },
+];
 
-  const filteredImages = extendedGallery.filter(img => img.cat.includes(filter));
+ const getData = () => {
+    setLoading(true);
+    axios.get(`https://website-backend-node-api.onrender.com/api/product/show?category=cakeStudio&subCategory=${filter}`)
+      .then(response => {
+        setLoading(false);
+        // Handle the response data
+        console.log(response.data);
+        setData(response.data.data);
+      })
+      .catch(error => {
+        setLoading(false);
+        // Handle any errors
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  useEffect(() => {
+    getData();
+  }, [filter]);
+
+  const filterCakes = (obj:any) => {
+    setFilter(obj.value);
+    setFilterLabel(obj.label);
+  }
+
+  
 
   return (
     <div className="bg-brand-cream min-h-screen py-16 sm:py-24">
@@ -46,15 +88,15 @@ export default function Gallery() {
         >
           {categories.map((cat) => (
             <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
-                filter === cat 
-                  ? 'bg-brand-cocoa text-white shadow-md' 
-                  : 'bg-white text-brand-brown border border-brand-pink/50 hover:border-brand-cocoa hover:text-brand-cocoa'
+              key={cat.label}
+              onClick={() => filterCakes(cat)}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 border ${
+                filter === cat.label 
+                  ? 'bg-brand-cocoa text-white border-brand-cocoa shadow-md' 
+                  : 'bg-brand-cream text-brand-brown border-brand-pink/50 hover:border-brand-cocoa hover:text-brand-cocoa'
               }`}
             >
-              {cat}
+              {cat.label}
             </button>
           ))}
         </motion.div>
@@ -65,19 +107,19 @@ export default function Gallery() {
           className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6"
         >
           <AnimatePresence>
-            {filteredImages.map((img, index) => (
+            {data.map((img, index) => (
               <motion.div
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                key={img.id}
+                key={index}
                 className="relative group overflow-hidden rounded-2xl cursor-pointer break-inside-avoid shadow-sm hover:shadow-lg transition-all"
-                onClick={() => setSelectedImage(img.src)}
+                onClick={() => setSelectedImage(img.image)}
               >
                 <img 
-                  src={img.src} 
+                  src={img.image} 
                   alt="Gallery Cake" 
                   loading="lazy"
                   className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
