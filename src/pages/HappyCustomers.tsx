@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Star } from 'lucide-react';
 import { testimonials, galleryImages } from '../data';
+import axios from 'axios';
+
+type Testimony = {
+  customerName: string;
+  rating: Number;
+  review: string;
+  status: string;
+};
 
 export default function HappyCustomers() {
+
+  const [data, setData] = useState<Testimony[]>([]);
+
+  const getData = () => {
+    axios.get(`https://website-backend-node-api.onrender.com/api/testimonial/show?category=cakeStudio`)
+      .then(response => {
+        // Handle the response data
+        console.log(response.data);
+        setData(response.data.data);
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="bg-brand-cream min-h-screen py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,9 +60,9 @@ export default function HappyCustomers() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {testimonials.map((testimonial, index) => (
+          {data.map((testimonial, index) => (
             <motion.div 
-              key={testimonial.id}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -46,6 +74,12 @@ export default function HappyCustomers() {
                   <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" />
                 </svg>
               </div>
+              <div className="flex items-center space-x-3 relative z-10 mb-6">
+                <div className="w-10 h-10 rounded-full bg-brand-pink/50 flex items-center justify-center font-bold text-brand-cocoa font-serif">
+                  {testimonial.customerName.charAt(0)}
+                </div>
+                <p className="font-bold text-brand-brown text-xl font-serif truncate">{testimonial.customerName}</p>
+              </div>
               
               <div className="flex space-x-1 text-brand-gold mb-6 relative z-10">
                 {[...Array(testimonial.rating)].map((_, i) => (
@@ -53,14 +87,9 @@ export default function HappyCustomers() {
                 ))}
               </div>
               <p className="text-brand-brown/80 mb-8 text-lg leading-relaxed relative z-10">
-                "{testimonial.text}"
+                "{testimonial.review.length > 200 ? testimonial.review.slice(0, 200) + '...' : testimonial.review}"
               </p>
-              <div className="flex items-center space-x-3 relative z-10">
-                <div className="w-10 h-10 rounded-full bg-brand-pink/50 flex items-center justify-center font-bold text-brand-cocoa font-serif">
-                  {testimonial.name.charAt(0)}
-                </div>
-                <p className="font-bold text-brand-brown font-serif">{testimonial.name}</p>
-              </div>
+              
             </motion.div>
           ))}
         </div>

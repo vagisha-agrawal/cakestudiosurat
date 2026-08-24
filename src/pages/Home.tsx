@@ -15,9 +15,31 @@ type Cake = {
   price: string;
 };
 
+type Testimony = {
+  customerName: string;
+  rating: Number;
+  review: string;
+  status: string;
+};
+
 export default function Home() {
   const [data, setData] = useState<Cake[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [testimonyData, setTestimonyData] = useState<Testimony[]>([]);
+
+  const getTestimonyData = () => {
+    axios.get(`https://website-backend-node-api.onrender.com/api/testimonial/show?category=cakeStudio`)
+      .then(response => {
+        // Handle the response data
+        console.log(response.data);
+        setTestimonyData(response.data.data);
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('Error fetching data:', error);
+      });
+  }
 
   const getData = () => {
     setLoading(true);
@@ -37,6 +59,7 @@ export default function Home() {
 
   useEffect(() => {
       getData();
+      getTestimonyData();
     }, []);
   return (
     <div className="pb-16 md:pb-0">
@@ -177,7 +200,7 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-brand-pink/50 text-brand-brown mb-3">
-                    {cake.subCategory.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                    {cake.subCategory?.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                   </span>
                   <h3 className="text-xl font-bold text-brand-brown font-serif mb-2">{cake.name}</h3>
                   <a 
@@ -243,9 +266,9 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
+            {testimonyData.slice(0, 3).map((testimonial, index) => (
               <motion.div 
-                key={testimonial.id}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -257,8 +280,8 @@ export default function Home() {
                     <Star key={i} className="w-4 h-4 fill-current" />
                   ))}
                 </div>
-                <p className="text-brand-brown/80 mb-6 italic">"{testimonial.text}"</p>
-                <p className="font-medium text-brand-brown font-serif">— {testimonial.name}</p>
+                <p className="text-brand-brown/80 mb-6 italic">"{testimonial.review.length > 200 ? testimonial.review.slice(0, 200) + '...' : testimonial.review}"</p>
+                <p className="font-medium text-brand-brown font-serif">— {testimonial.customerName}</p>
               </motion.div>
             ))}
           </div>
